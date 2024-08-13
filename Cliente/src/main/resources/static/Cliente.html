@@ -1,0 +1,152 @@
+    <script>
+        const clienteApiUrl = 'http://localhost:8080/cliente';
+        const projetistaApiUrl = 'http://localhost:8080/projetista';
+
+        // Funções para Cliente
+        function fetchClientes() {
+            fetch(clienteApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('clientesList');
+                    list.innerHTML = '<ul>' + data.map(cliente => 
+                        `<li>ID: ${cliente.id}, Nome: ${cliente.nome}, CPF: ${cliente.cpf}, Email: ${cliente.email}</li>`
+                    ).join('') + '</ul>';
+                });
+        }
+
+        function criarCliente() {
+            const cliente = {
+                nome: document.getElementById('clienteNome').value,
+                cpf: document.getElementById('clienteCpf').value,
+                email: document.getElementById('clienteEmail').value,
+                telefone: document.getElementById('clienteTelefone').value,
+                cep: document.getElementById('clienteCep').value,
+                endereco: document.getElementById('clienteEndereco').value,
+            };
+            fetch(clienteApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cliente)
+            })
+            .then(response => response.json())
+            .then(data => alert('Cliente criado: ' + JSON.stringify(data)));
+        }
+
+        function obterCliente() {
+            const id = document.getElementById('clienteObterId').value;
+            fetch(`${clienteApiUrl}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const details = document.getElementById('clienteDetalhes');
+                    details.innerHTML = `<p>ID: ${data.id}<br>Nome: ${data.nome}<br>CPF: ${data.cpf}<br>Email: ${data.email}<br>Telefone: ${data.telefone}<br>CEP: ${data.cep}<br>Endereço: ${data.endereco}</p>`;
+                })
+                .catch(() => alert('Cliente não encontrado.'));
+        }
+
+        function atualizarCliente() {
+            const id = document.getElementById('clienteAtualizarId').value;
+            const cliente = {
+                nome: document.getElementById('clienteAtualizarNome').value,
+                cpf: document.getElementById('clienteAtualizarCpf').value,
+                email: document.getElementById('clienteAtualizarEmail').value,
+                telefone: document.getElementById('clienteAtualizarTelefone').value,
+                cep: document.getElementById('clienteAtualizarCep').value,
+                endereco: document.getElementById('clienteAtualizarEndereco').value,
+            };
+            fetch(`${clienteApiUrl}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cliente)
+            })
+            .then(response => response.json())
+            .then(data => alert('Cliente atualizado: ' + JSON.stringify(data)))
+            .catch(() => alert('Cliente não encontrado.'));
+        }
+
+        function deletarCliente() {
+            const id = document.getElementById('clienteDeletarId').value;
+            fetch(`${clienteApiUrl}/${id}`, {
+                method: 'DELETE'
+            })
+            .then(() => alert('Cliente deletado com sucesso.'))
+            .catch(() => alert('Cliente não encontrado.'));
+        }
+
+        // Funções para Projetista
+        function fetchProjetistas() {
+            fetch(projetistaApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('projetistasList');
+                    list.innerHTML = '<ul>' + data.map(projetista => 
+                        `<li>ID: ${projetista.idPro}, Nome: ${projetista.nome}, CNPJ: ${projetista.cnpj}, Email: ${projetista.email}</li>`
+                    ).join('') + '</ul>';
+                });
+        }
+
+        function criarProjetista() {
+            const projetista = {
+                nome: document.getElementById('projetistaNome').value,
+                cnpj: document.getElementById('projetistaCnpj').value,
+                email: document.getElementById('projetistaEmail').value,
+                telefone: document.getElementById('projetistaTelefone').value,
+                cep: document.getElementById('projetistaCep').value,
+                endereco: document.getElementById('projetistaEndereco').value,
+            };
+            fetch(projetistaApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(projetista)
+            })
+            .then(response => response.json())
+            .then(data => alert('Projetista criado: ' + JSON.stringify(data)));
+        }
+
+        function obterProjetista() {
+            const id = document.getElementById('projetistaObterId').value;
+            fetch(`${projetistaApiUrl}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const details = document.getElementById('projetistaDetalhes');
+                    details.innerHTML = `<p>ID: ${data.idPro}<br>Nome: ${data.nome}<br>CNPJ: ${data.cnpj}<br>Email: ${data.email}<br>Telefone: ${data.telefone}<br>CEP: ${data.cep}<br>Endereço: ${data.endereco}</p>`;
+                })
+                .catch(() => alert('Projetista não encontrado.'));
+        }
+
+        function atualizarProjetista() {
+            const id = document.getElementById('projetistaAtualizarId').value;
+            const projetista = {
+                nome: document.getElementById('projetistaAtualizarNome').value,
+                cnpj: document.getElementById('projetistaAtualizarCnpj').value,
+                email: document.getElementById('projetistaAtualizarEmail').value,
+                telefone: document.getElementById('projetistaAtualizarTelefone').value,
+                cep: document.getElementById('projetistaAtualizarCep').value,
+                endereco: document.getElementById('projetistaAtualizarEndereco').value,
+            };
+            fetch(`${projetistaApiUrl}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(projetista)
+            })
+            .then(response => response.json())
+            .then(data => alert('Projetista atualizado: ' + JSON.stringify(data)))
+            .catch(() => alert('Projetista não encontrado.'));
+        }
+
+        function deletarProjetista() {
+            const id = document.getElementById('projetistaDeletarId').value;
+            fetch(`${projetistaApiUrl}/${id}`, {
+                method: 'DELETE'
+            })
+            .then(() => alert('Projetista deletado com sucesso.'))
+            .catch(() => alert('Projetista não encontrado.'));
+        }
+    </script>
