@@ -1,25 +1,25 @@
-<!-- /src/main/resources/static/cliente.html -->
+<!-- /src/main/resources/static/projetista.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Cliente</title>
+    <title>Formulário de Projetista</title>
 </head>
 <body>
-    <h1>Cadastro, Atualização e Exclusão de Cliente</h1>
+    <h1>Cadastro, Atualização e Exclusão de Projetista</h1>
 
-    <form id="clienteForm">
+    <form id="projetistaForm">
         <fieldset>
-            <legend>Informações do Cliente</legend>
-            <label for="id">ID (para atualização ou exclusão):</label>
-            <input type="number" id="id" name="id" placeholder="ID" min="1"><br><br>
+            <legend>Informações do Projetista</legend>
+            <label for="idPro">ID (para atualização ou exclusão):</label>
+            <input type="number" id="idPro" name="idPro" placeholder="ID" min="1"><br><br>
             
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required><br><br>
             
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required><br><br>
+            <label for="cnpj">CNPJ:</label>
+            <input type="text" id="cnpj" name="cnpj" required><br><br>
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required><br><br>
@@ -39,28 +39,28 @@
     </form>
 
     <br><br>
-    <a href="projetista.html">Ir para o formulário de Projetista</a>
+    <a href="cliente.html">Ir para o formulário de Cliente</a>
 
     <script>
         function enviarDados(method) {
-            const id = document.getElementById('id').value;
+            const idPro = document.getElementById('idPro').value;
             const nome = document.getElementById('nome').value;
-            const cpf = document.getElementById('cpf').value;
+            const cnpj = document.getElementById('cnpj').value;
             const email = document.getElementById('email').value;
             const telefone = document.getElementById('telefone').value;
             const cep = document.getElementById('cep').value;
             const endereco = document.getElementById('endereco').value;
 
-            const cliente = {
+            const projetista = {
                 nome,
-                cpf,
+                cnpj,
                 email,
                 telefone,
                 cep,
                 endereco
             };
 
-            const url = id ? `/cliente/${id}` : '/cliente';
+            const url = idPro ? `/projetista/${idPro}` : '/projetista';
             const methodType = method;
 
             fetch(url, {
@@ -68,37 +68,37 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: methodType === 'POST' || methodType === 'PUT' ? JSON.stringify(cliente) : null
+                body: methodType === 'POST' || methodType === 'PUT' ? JSON.stringify(projetista) : null
             })
             .then(response => response.json())
             .then(data => {
-                alert(`Cliente ${methodType === 'POST' ? 'cadastrado' : 'atualizado'} com sucesso!`);
+                alert(`Projetista ${methodType === 'POST' ? 'cadastrado' : 'atualizado'} com sucesso!`);
                 console.log(data);
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert('Erro ao processar cliente.');
+                alert('Erro ao processar projetista.');
             });
         }
 
         function deletarDados() {
-            const id = document.getElementById('id').value;
+            const idPro = document.getElementById('idPro').value;
 
-            if (!id) {
+            if (!idPro) {
                 alert('Por favor, informe o ID para exclusão.');
                 return;
             }
 
-            fetch(`/cliente/${id}`, {
+            fetch(`/projetista/${idPro}`, {
                 method: 'DELETE'
             })
             .then(() => {
-                alert('Cliente excluído com sucesso!');
-                document.getElementById('clienteForm').reset();
+                alert('Projetista excluído com sucesso!');
+                document.getElementById('projetistaForm').reset();
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert('Erro ao excluir cliente.');
+                alert('Erro ao excluir projetista.');
             });
         }
     </script>
