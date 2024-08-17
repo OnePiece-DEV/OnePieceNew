@@ -17,8 +17,11 @@ public class Cliente {
 		private String email;
 		private String telefone;
 		private String cep;
-		private String endereco;
-		
+		private String logradouro;
+		private int numerolocal;
+		private String cidade;
+		private String UF;
+		private String Complemento;
 		
 		
 		public String getEmail() {
@@ -69,13 +72,46 @@ public class Cliente {
 			this.cep = cep;
 		}
 
-		public String getEndereco() {
-			return endereco;
+		public String getLogradouro() {
+			return logradouro;
 		}
 
-		public void setEndereco(String endereco) {
-			this.endereco = endereco;
+		public void setLogradouro(String logradouro) {
+			this.logradouro = logradouro;
 		}
+
+		public int getNumerolocal() {
+			return numerolocal;
+		}
+
+		public void setNumerolocal(int numerolocal) {
+			this.numerolocal = numerolocal;
+		}
+
+		public String getCidade() {
+			return cidade;
+		}
+
+		public void setCidade(String cidade) {
+			this.cidade = cidade;
+		}
+
+		public String getUF() {
+			return UF;
+		}
+
+		public void setUF(String uF) {
+			UF = uF;
+		}
+
+		public String getComplemento() {
+			return Complemento;
+		}
+
+		public void setComplemento(String complemento) {
+			Complemento = complemento;
+		}
+		
 		
 		
 		

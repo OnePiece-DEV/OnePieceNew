@@ -47,7 +47,11 @@ public class ClienteController {
 						cliente.setEmail (novoCliente.getEmail());
 						cliente.setTelefone (novoCliente.getTelefone());
 						cliente.setCep(novoCliente.getCep());
-						cliente.setEndereco(novoCliente.getEndereco());
+						cliente.setLogradouro(novoCliente.getLogradouro());
+						cliente.setNumerolocal(novoCliente.getNumerolocal());
+						cliente.setCidade(novoCliente.getCidade());
+						cliente.setUF(novoCliente.getUF());
+						cliente.setComplemento (novoCliente.getComplemento());
 						return clienteRepository.save(cliente);
 					})
 					.orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + id));
