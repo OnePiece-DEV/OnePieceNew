@@ -49,6 +49,10 @@ public class ProjetistaController {
 						projetista.setTelefone (novoProjetista.getTelefone());
 						projetista.setCep(novoProjetista.getCep());
 						projetista.setLogradouro(novoProjetista.getLogradouro());
+						projetista.setNumerolocal(novoProjetista.getNumerolocal());
+						projetista.setCidade(novoProjetista.getCidade());
+						projetista.setUF(novoProjetista.getUF());
+						projetista.setComplemento(novoProjetista.getComplemento());
 						return projetistaRepository.save(projetista);
 					})
 					.orElseThrow(() -> new RuntimeException("Projetista não encontrado com id: " + id));
