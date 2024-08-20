@@ -19,46 +19,44 @@ import br.dev.onepiece.Repository.ClienteRepository;
 @RequestMapping("/cliente")
 
 public class ClienteController {
-		@Autowired
+	@Autowired
 	private ClienteRepository clienteRepository;
-		
-		@GetMapping()
-		public List<Cliente> listarClientes() {
-			return clienteRepository.findAll();
-			}
-		
-		@PostMapping()
-		public Cliente criarCliente(@RequestBody Cliente cliente) {
+
+	@GetMapping()
+	public List<Cliente> listarClientes() {
+		return clienteRepository.findAll();
+	}
+
+	@PostMapping()
+	public Cliente criarCliente(@RequestBody Cliente cliente) {
+		return clienteRepository.save(cliente);
+	}
+
+	@GetMapping("/{id}")
+	public Cliente obterCliente(@PathVariable Long id) {
+		return clienteRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + id));
+	}
+
+	@PutMapping("/{id}")
+	public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente novoCliente) {
+		return clienteRepository.findById(id).map(cliente -> {
+			cliente.setNome(novoCliente.getNome());
+			cliente.setCpf(novoCliente.getCpf());
+			cliente.setEmail(novoCliente.getEmail());
+			cliente.setTelefone(novoCliente.getTelefone());
+			cliente.setCep(novoCliente.getCep());
+			cliente.setLogradouro(novoCliente.getLogradouro());
+			cliente.setNumerolocal(novoCliente.getNumerolocal());
+			cliente.setCidade(novoCliente.getCidade());
+			cliente.setUF(novoCliente.getUF());
+			cliente.setComplemento(novoCliente.getComplemento());
 			return clienteRepository.save(cliente);
-		}
-		
-		@GetMapping("/{id}")
-		public Cliente obterCliente(@PathVariable Long id) {
-			return clienteRepository.findById(id)
-					.orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + id));
-		}
-		
-		@PutMapping("/{id}")
-		public Cliente atualizarCliente (@PathVariable Long id, @RequestBody Cliente novoCliente) {
-			return clienteRepository.findById(id)
-					.map (cliente -> {
-						cliente.setNome (novoCliente.getNome());
-						cliente.setCpf (novoCliente.getCpf());
-						cliente.setEmail (novoCliente.getEmail());
-						cliente.setTelefone (novoCliente.getTelefone());
-						cliente.setCep(novoCliente.getCep());
-						cliente.setLogradouro(novoCliente.getLogradouro());
-						cliente.setNumerolocal(novoCliente.getNumerolocal());
-						cliente.setCidade(novoCliente.getCidade());
-						cliente.setUF(novoCliente.getUF());
-						cliente.setComplemento (novoCliente.getComplemento());
-						return clienteRepository.save(cliente);
-					})
-					.orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + id));
-		}
-		
-		@DeleteMapping("/{id}")
-		public void deletarCliente (@PathVariable Long id) {
-			clienteRepository.deleteById(id);
-		}
+		}).orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + id));
+	}
+
+	@DeleteMapping("/{id}")
+	public void deletarCliente(@PathVariable Long id) {
+		clienteRepository.deleteById(id);
+	}
 }

@@ -7,114 +7,107 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Cliente {
-		@Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-		
-		private long id;
-		
-		private String nome;
-		private String cpf;
-		private String email;
-		private String telefone;
-		private String cep;
-		private String logradouro;
-		private int numerolocal;
-		private String cidade;
-		private String UF;
-		private String Complemento;
-		
-		
-		public String getEmail() {
-			return email;
-		}
+	private long id;
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+	private String nome;
+	private String cpf;
+	private String email;
+	private String telefone;
+	private String cep;
+	private String logradouro;
+	private int numerolocal;
+	private String cidade;
+	private String UF;
+	private String Complemento;
 
-		public String getTelefone() {
-			return telefone;
-		}
+	public String getEmail() {
+		return email;
+	}
 
-		public void setTelefone(String telefone) {
-			this.telefone = telefone;
-		}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-		public long getId() {
-			return id;
-		}
+	public String getTelefone() {
+		return telefone;
+	}
 
-		public void setId(long id) {
-			this.id = id;
-		}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-		public String getNome() {
-			return nome;
-		}
+	public long getId() {
+		return id;
+	}
 
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
+	public void setId(long id) {
+		this.id = id;
+	}
 
-		public String getCpf() {
-			return cpf;
-		}
+	public String getNome() {
+		return nome;
+	}
 
-		public void setCpf(String cpf) {
-			this.cpf = cpf;
-		}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-		public String getCep() {
-			return cep;
-		}
+	public String getCpf() {
+		return cpf;
+	}
 
-		public void setCep(String cep) {
-			this.cep = cep;
-		}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-		public String getLogradouro() {
-			return logradouro;
-		}
+	public String getCep() {
+		return cep;
+	}
 
-		public void setLogradouro(String logradouro) {
-			this.logradouro = logradouro;
-		}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-		public int getNumerolocal() {
-			return numerolocal;
-		}
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-		public void setNumerolocal(int numerolocal) {
-			this.numerolocal = numerolocal;
-		}
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-		public String getCidade() {
-			return cidade;
-		}
+	public int getNumerolocal() {
+		return numerolocal;
+	}
 
-		public void setCidade(String cidade) {
-			this.cidade = cidade;
-		}
+	public void setNumerolocal(int numerolocal) {
+		this.numerolocal = numerolocal;
+	}
 
-		public String getUF() {
-			return UF;
-		}
+	public String getCidade() {
+		return cidade;
+	}
 
-		public void setUF(String uF) {
-			UF = uF;
-		}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
-		public String getComplemento() {
-			return Complemento;
-		}
+	public String getUF() {
+		return UF;
+	}
 
-		public void setComplemento(String complemento) {
-			Complemento = complemento;
-		}
-		
-		
-		
-		
-	
-	
+	public void setUF(String uF) {
+		UF = uF;
+	}
+
+	public String getComplemento() {
+		return Complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		Complemento = complemento;
+	}
+
 }
