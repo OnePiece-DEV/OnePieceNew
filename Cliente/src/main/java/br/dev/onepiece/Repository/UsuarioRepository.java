@@ -8,5 +8,5 @@ import br.dev.onepiece.Model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-
+	Usuario findByLogin(String login);
 }
