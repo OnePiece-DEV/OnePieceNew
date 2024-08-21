@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.dev.onepiece.Model.Projetista;
 import br.dev.onepiece.Repository.ProjetistaRepository;
-import br.dev.onepiece.Repository.ContratoRepository; // Supondo que exista um repositório de contratos
+import br.dev.onepiece.Repository.OrcamentoRepository;
 
 @RestController
 @RequestMapping("/projetista")
@@ -25,7 +25,8 @@ public class ProjetistaController {
     @Autowired
     private ProjetistaRepository projetistaRepository;
 
-    
+    @Autowired
+    private OrcamentoRepository orcamentoRepository;
 
     @GetMapping()
     public List<Projetista> listarProjetistas() {
@@ -66,11 +67,11 @@ public class ProjetistaController {
     public ResponseEntity<String> deletarProjetista(@PathVariable Long id) {
         return projetistaRepository.findById(id)
                 .map(projetista -> {
-                    // Verifique se há contratos pendentes
-                    boolean temContratosPendentes = contratoRepository.existsByProjetistaId(id);
-                    if (temContratosPendentes) {
+                    // Verifique se há orçamentos pendentes
+                    boolean temOrcamentosPendentes = orcamentoRepository.existsByProjetista_IdPro(id); // Use o método correto
+                    if (temOrcamentosPendentes) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                                .body("Não é possível excluir o projetista, pois existem contratos em aberto.");
+                                .body("Não é possível excluir o projetista, pois existem orçamentos em aberto.");
                     }
                     projetistaRepository.deleteById(id);
                     return ResponseEntity.ok("Projetista excluído com sucesso.");
