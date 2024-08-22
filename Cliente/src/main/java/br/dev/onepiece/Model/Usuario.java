@@ -1,9 +1,13 @@
 package br.dev.onepiece.Model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Usuario {
 	
 	@Id
@@ -13,6 +17,10 @@ public class Usuario {
 	private String login;
 
 	private String senha;
+	
+	 @ManyToOne
+	    @JoinColumn(name = "projetista_id")
+	    private Projetista projetista;
 
 	public long getId() {
 		return id;

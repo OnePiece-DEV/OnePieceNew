@@ -12,7 +12,7 @@ public class Projetista {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private long idPro;
+	private Long idPro;
 	
 	private String nome;
 	private String cnpj;
