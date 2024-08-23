@@ -1,43 +1,36 @@
 package br.dev.onepiece.Controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import br.dev.onepiece.Model.Orcamento;
+import br.dev.onepiece.Model.Projetista;
+import br.dev.onepiece.Repository.ProjetistaRepository;
 import br.dev.onepiece.Service.OrcamentoService;
-import jakarta.validation.Valid;
 
-@Controller
-@RequestMapping("/orcamento")
+@RestController
+@RequestMapping("/orcamentos")
 public class OrcamentoController {
 
     @Autowired
     private OrcamentoService orcamentoService;
 
-    @GetMapping("/form")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("orcamento", new Orcamento());
-        return "orcamento/formulario";
-    }
+    @Autowired
+    private ProjetistaRepository projetistaRepository;
 
     @PostMapping("/salvar")
-    public String salvarOrcamento(@Valid Orcamento orcamento, BindingResult result) {
-        if (result.hasErrors()) {
-            return "orcamento/formulario";
+    public ResponseEntity<Orcamento> salvarOrcamento(@RequestBody Orcamento orcamento) {
+        if (orcamento == null) {
+            return ResponseEntity.badRequest().build(); // Adiciona validação para orcamento nulo
         }
-        orcamentoService.salvar(orcamento);
-        return "redirect:/orcamento/lista";
-    }
 
-    @GetMapping("/lista")
-    public String listarOrcamentos(Model model) {
-        model.addAttribute("orcamentos", orcamentoService.listarTodos());
-        return "orcamento/lista";
+        if (orcamento.getProjetista() != null && orcamento.getProjetista().getIdPro() == null) {
+            Projetista projetista = projetistaRepository.save(orcamento.getProjetista());
+            orcamento.setProjetista(projetista);
+        }
+        Orcamento savedOrcamento = orcamentoService.salvar(orcamento);
+
+        return ResponseEntity.ok(savedOrcamento);
     }
 }

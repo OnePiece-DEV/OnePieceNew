@@ -10,8 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "br.dev.onepiece.Repository")
 public class ClienteApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ClienteApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(ClienteApplication.class, args);
+    }
 }

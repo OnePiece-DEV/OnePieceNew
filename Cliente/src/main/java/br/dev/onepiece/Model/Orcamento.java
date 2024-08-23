@@ -1,11 +1,12 @@
 package br.dev.onepiece.Model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -27,7 +28,7 @@ public class Orcamento {
     private Double valor;
 
     @ManyToOne
-    @JoinColumn(name = "projetista_id")  // Nome da coluna no banco de dados
+    @JoinColumn(name = "projetista_id")
     private Projetista projetista;
 
     public Long getId() {
