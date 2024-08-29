@@ -25,7 +25,10 @@ public class Orcamento {
     @NotNull(message = "Valor não pode ser nulo")
     @Positive(message = "Valor deve ser positivo")
     private Double valor;
+    
 
+    //adição de data prevista ou data necessaria 
+    
     @ManyToOne
     @JoinColumn(name = "projetista_id")
     private Projetista projetista;

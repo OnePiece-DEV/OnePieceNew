@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Projetista {
@@ -11,15 +15,39 @@ public class Projetista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPro;
 
+    @NotBlank(message = "Nome não pode estar vazio")
+    @Column(unique = true, nullable = false)
     private String nome;
+
+    @NotBlank(message = "CNPJ não pode estar vazio")
+    @Column(unique = true, nullable = false, length = 14)
     private String cnpj;
+
+    @NotBlank(message = "Email não pode estar vazio")
+    @Email(message = "Email deve ser válido")
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @NotBlank(message = "Telefone não pode estar vazio")
+    @Column(unique = true, nullable = false)
     private String telefone;
+
+    @NotBlank(message = "CEP não pode estar vazio")
     private String cep;
+
+    @NotBlank(message = "Logradouro não pode estar vazio")
     private String logradouro;
+
+    @NotBlank(message = "Número do local não pode estar vazio")
     private String numerolocal;
+
+    @NotBlank(message = "Cidade não pode estar vazia")
     private String cidade;
+
+    @NotBlank(message = "UF não pode estar vazio")
+    @Size(min = 2, max = 2, message = "UF deve conter 2 caracteres")
     private String UF;
+
     private String complemento;
 
     // Getters e Setters
