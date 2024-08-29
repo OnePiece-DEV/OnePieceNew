@@ -1,68 +1,54 @@
 package br.dev.onepiece.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Entity
 public class Orcamento {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idOrcamento;
 
-    @NotEmpty(message = "Nome do cliente não pode estar vazio")
-    private String nomeCliente;
+    @NotNull(message = "O valor do orçamento é obrigatório")
+    private BigDecimal valor;
 
-    private String descricao;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @NotNull(message = "Cliente é obrigatório")
+    private Cliente cliente;
 
-    @NotNull(message = "Valor não pode ser nulo")
-    @Positive(message = "Valor deve ser positivo")
-    private Double valor;
-    
-
-    //adição de data prevista ou data necessaria 
-    
     @ManyToOne
     @JoinColumn(name = "projetista_id")
     private Projetista projetista;
 
-    public Long getId() {
-        return id;
+    private String descricao;
+
+    // Getters e Setters
+
+    public Long getIdOrcamento() {
+        return idOrcamento;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdOrcamento(Long idOrcamento) {
+        this.idOrcamento = idOrcamento;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Projetista getProjetista() {
@@ -71,5 +57,13 @@ public class Orcamento {
 
     public void setProjetista(Projetista projetista) {
         this.projetista = projetista;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.dev.onepiece.Model.Cliente;
 import br.dev.onepiece.Model.Orcamento;
 import br.dev.onepiece.Model.Projetista;
+import br.dev.onepiece.Repository.ClienteRepository;
 import br.dev.onepiece.Repository.ProjetistaRepository;
 import br.dev.onepiece.Service.OrcamentoService;
 
@@ -29,16 +31,27 @@ public class OrcamentoController {
     @Autowired
     private ProjetistaRepository projetistaRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @PostMapping("/salvar")
     public ResponseEntity<Orcamento> salvarOrcamento(@RequestBody Orcamento orcamento) {
-        if (orcamento == null) {
+        if (orcamento == null || orcamento.getCliente() == null) {
             return ResponseEntity.badRequest().build(); // Adiciona validação para orcamento nulo
         }
 
+        // Verifica e associa o cliente
+        Cliente cliente = clienteRepository.findById(orcamento.getCliente().getId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com id: " + orcamento.getCliente().getId()));
+        orcamento.setCliente(cliente);
+
+        // Verifica e associa o projetista se necessário
         if (orcamento.getProjetista() != null && orcamento.getProjetista().getIdPro() == null) {
             Projetista projetista = projetistaRepository.save(orcamento.getProjetista());
             orcamento.setProjetista(projetista);
         }
+
+        // Salva o orçamento com o cliente e projetista (se aplicável) associados
         Orcamento savedOrcamento = orcamentoService.salvar(orcamento);
 
         return ResponseEntity.ok(savedOrcamento);

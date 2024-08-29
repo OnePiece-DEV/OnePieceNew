@@ -1,8 +1,6 @@
 package br.dev.onepiece.Model;
 
-  import java.sql.Date;
-
-// Verifique se você realmente precisa desta importação
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +32,11 @@ public class Cotacao {
     @JoinColumn(name = "cliente_id") // Nome da coluna estrangeira
     @NotNull(message = "Cliente não pode ser nulo")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "projetista_id") // Nome da coluna estrangeira
+    @NotNull(message = "Projetista não pode ser nulo")
+    private Projetista projetista;
 
     // Getters e Setters
 
@@ -75,5 +78,13 @@ public class Cotacao {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Projetista getProjetista() {
+        return projetista;
+    }
+
+    public void setProjetista(Projetista projetista) {
+        this.projetista = projetista;
     }
 }
