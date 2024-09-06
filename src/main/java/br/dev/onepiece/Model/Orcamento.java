@@ -1,8 +1,16 @@
 package br.dev.onepiece.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Orcamento {
@@ -17,11 +25,15 @@ public class Orcamento {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     @NotNull(message = "Cliente é obrigatório")
+    @JsonManagedReference
     private Cliente cliente;
+    
 
     @ManyToOne
     @JoinColumn(name = "projetista_id")
+    @JsonManagedReference
     private Projetista projetista;
+    
 
     private String descricao;
 

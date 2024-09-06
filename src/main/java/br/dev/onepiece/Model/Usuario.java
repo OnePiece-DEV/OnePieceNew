@@ -36,12 +36,24 @@ public class Usuario {
 	@JoinColumn(name = "projetista_id")
 	private Projetista projetista;
 
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+
 	public Projetista getProjetista() {
 		return projetista;
 	}
 
 	public void setProjetista(Projetista projetista) {
 		this.projetista = projetista;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	public Usuario() {

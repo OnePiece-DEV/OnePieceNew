@@ -1,6 +1,9 @@
 package br.dev.onepiece.Model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,8 +57,10 @@ public class Cliente {
     private String complemento;
     
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Orcamento> orcamentos;
-
+   
+    
     // Getters e Setters
     public Long getId() {
         return id;
